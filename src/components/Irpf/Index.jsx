@@ -51,13 +51,13 @@ class Irpf extends Component {
               <th>
                 Janeiro
               </th>
-              <td>{this.state.swing_trade?.find(i => i.month == "01")?.value}</td>
+              <td>{this.state.swing_trade?.find(i => i.month === "01")?.value}</td>
               <td></td>
               <td></td>
-              <td>{this.state.day_grade?.find(i => i.month == "01")?.value}</td>
+              <td>{this.state.day_trade?.find(i => i.month === "01")?.value}</td>
               <td></td>
               <td></td>
-              <td>{this.state.day_grade?.fiisfind(i => i.month == "01")?.value}</td>
+              <td>{this.state.fiis?.find(i => i.month === "01")?.value}</td>
               <td></td>
               <td></td>
             </tr>
@@ -65,13 +65,13 @@ class Irpf extends Component {
               <th>
                 Fevereiro
               </th>
-              <td>{this.state.swing_trade?.find(i => i.month == "02")?.value}</td>
+              <td>{this.state.swing_trade?.find(i => i.month === "02")?.value}</td>
               <td></td>
               <td></td>
-              <td>{this.state.day_grade?.find(i => i.month == "02")?.value}</td>
+              <td>{this.state.day_trade?.find(i => i.month === "02")?.value}</td>
               <td></td>
               <td></td>
-              <td>{this.state.day_grade?.fiisfind(i => i.month == "02")?.value}</td>
+              <td>{this.state.fiis?.find(i => i.month === "02")?.value}</td>
               <td></td>
               <td></td>
             </tr>
