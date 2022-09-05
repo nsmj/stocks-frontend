@@ -1,6 +1,21 @@
 import { Component } from "react";
 import './styles.css';
 
+var months = {
+  '01': 'Janeiro',
+  '02': 'Fevereiro',
+  '03': 'Março',
+  '04': 'Abril',
+  '05': 'Maio',
+  '06': 'Junho',
+  '07': 'Julho',
+  '08': 'Agosto',
+  '09': 'Setembro',
+  '10': 'Outubro',
+  '11': 'Novembro',
+  '12': 'Dezembro'
+}
+
 class Irpf extends Component {
 
   state = {};
@@ -12,7 +27,8 @@ class Irpf extends Component {
 
   handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      this.setState(await this.loadData(event.target.value));
+      let data = await this.loadData(event.target.value);
+      this.setState(data);
     }
   }
 
@@ -47,39 +63,45 @@ class Irpf extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>
-                Janeiro
-              </th>
-              <td>{this.state.swing_trade?.find(i => i.month === "01")?.value}</td>
-              <td></td>
-              <td></td>
-              <td>{this.state.day_trade?.find(i => i.month === "01")?.value}</td>
-              <td></td>
-              <td></td>
-              <td>{this.state.fiis?.find(i => i.month === "01")?.value}</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <th>
-                Fevereiro
-              </th>
-              <td>{this.state.swing_trade?.find(i => i.month === "02")?.value}</td>
-              <td></td>
-              <td></td>
-              <td>{this.state.day_trade?.find(i => i.month === "02")?.value}</td>
-              <td></td>
-              <td></td>
-              <td>{this.state.fiis?.find(i => i.month === "02")?.value}</td>
-              <td></td>
-              <td></td>
-            </tr>
+            <IrpfMonth month="01" data={this.state} />
+            <IrpfMonth month="02" data={this.state} />
+            <IrpfMonth month="03" data={this.state} />
+            <IrpfMonth month="04" data={this.state} />
+            <IrpfMonth month="05" data={this.state} />
+            <IrpfMonth month="06" data={this.state} />
+            <IrpfMonth month="07" data={this.state} />
+            <IrpfMonth month="08" data={this.state} />
+            <IrpfMonth month="09" data={this.state} />
+            <IrpfMonth month="10" data={this.state} />
+            <IrpfMonth month="11" data={this.state} />
+            <IrpfMonth month="12" data={this.state} />
           </tbody>
         </table>
       </div >
     )
   }
-};
+}
+
+function IrpfMonth({ month, data }) {
+
+  return (
+    <tr>
+      <th>
+        {months[month]}
+      </th>
+      <td>{data.swing_trade?.find(i => i.month === month)?.value}</td>
+      <td></td>
+      <td>{data.irrf?.find(i => i.month === month && i.trade_type === "Swing Trade")?.value}</td>
+      <td>{data.day_trade?.find(i => i.month === month)?.value}</td>
+      <td></td>
+      <td></td>
+      <td>{data.fiis?.find(i => i.month === month)?.value}</td>
+      <td></td>
+      <td>{data.irrf?.find(i => i.month === month && i.trade_type === "FII")?.value}</td>
+    </tr>
+  );
+
+}
+
 
 export default Irpf;

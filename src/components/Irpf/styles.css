@@ -1,3 +1,7 @@
- table {
-     border: 1px solid;
- }
+table {
+    border: 1px solid;
+}
+
+table tr th {
+    text-align: left;
+}
