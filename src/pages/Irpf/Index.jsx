@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { useContext, useState, createContext } from "react";
+
+
 import './styles.css';
 
 var months = {
@@ -22,25 +24,14 @@ function Irpf() {
 
   const [state, setState] = useState({});
 
-  const loadData = (year) => {
-    return fetch('http://localhost:3000/irpf/' + year)
-      .then(data => data.json());
-  };
-
-  const handleKeyDown = async (event) => {
-    if (event.key === 'Enter') {
-      let data = await loadData(event.target.value);
-      setState(data);
-    }
-  };
-
   return (
     <>
-      <input type="search" placeholder="Search by Year" onKeyDown={handleKeyDown} />
+      <IrpfContext.Provider value={{ state, setState }}>
 
-      <IrpfContext.Provider value={state}>
+        <Search />
+
         <p style={{ textAlign: "left" }}>
-          Lucro com vendas abaixo de 20 mil reais: {state.profit_from_sales_below_20k}
+
         </p>
 
         <table>
@@ -84,8 +75,28 @@ function Irpf() {
   );
 }
 
+function Search() {
+
+  const { state, setState } = useContext(IrpfContext);
+
+  const loadData = (year) => {
+    return fetch('http://localhost:3000/irpf/' + year)
+      .then(data => data.json());
+  };
+
+  const handleKeyDown = async (event) => {
+
+    if (event.key === 'Enter') {
+      let data = await loadData(event.target.value);
+      setState(data);
+    }
+  };
+
+  return <input type="search" placeholder="Search by Year" onKeyDown={handleKeyDown} />
+}
+
 function IrpfMonth({ month }) {
-  const state = useContext(IrpfContext);
+  const { state, setState } = useContext(IrpfContext);
 
   return (
     <tr>

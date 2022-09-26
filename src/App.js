@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Irpf from './templates/Irpf/Index';
+import Irpf from './pages/Irpf/Index';
 
 
 function App() {
