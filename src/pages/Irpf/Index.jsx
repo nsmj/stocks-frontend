@@ -20,7 +20,7 @@ var months = {
 
 const IrpfContext = createContext();
 
-function Irpf() {
+export const Irpf = () => {
 
   const [state, setState] = useState({});
 
