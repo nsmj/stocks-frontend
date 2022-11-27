@@ -124,8 +124,8 @@ function IrpfMonth({ month }) {
 const EndYearPositions = () => {
   const { state, setState } = useContext(IrpfContext);
 
-  const handleClick = (event) => {
-    console.log(event)
+  const handleClick = (texto) => {
+    navigator.clipboard.writeText(texto);
   }
 
   return (
@@ -140,7 +140,7 @@ const EndYearPositions = () => {
           <tr key={index}>
             <td>{eep.code}</td>
             <td>{eep.text}</td>
-            <td onClick={handleClick}>Copiar</td>
+            <td onClick={() => handleClick(eep.text)}>Copiar</td>
           </tr>
         ))}
       </tbody>
