@@ -28,48 +28,52 @@ export const Irpf = () => {
     <>
       <IrpfContext.Provider value={{ state, setState }}>
 
-        <Search />
-
         <p style={{ textAlign: "left" }}>
-
+          <Search />
         </p>
 
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th colSpan="3">Operações Comuns</th>
-              <th colSpan="3">Day Trade</th>
-              <th colSpan="3">FIIs</th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>Total</th>
-              <th>Imposto Pago</th>
-              <th>IRRF</th>
-              <th>Total</th>
-              <th>Imposto Pago</th>
-              <th>IRRF</th>
-              <th>Total</th>
-              <th>Imposto Pago</th>
-              <th>IRRF</th>
-            </tr>
-          </thead>
-          <tbody>
-            <IrpfMonth month="01" />
-            <IrpfMonth month="02" />
-            <IrpfMonth month="03" />
-            <IrpfMonth month="04" />
-            <IrpfMonth month="05" />
-            <IrpfMonth month="06" />
-            <IrpfMonth month="07" />
-            <IrpfMonth month="08" />
-            <IrpfMonth month="09" />
-            <IrpfMonth month="10" />
-            <IrpfMonth month="11" />
-            <IrpfMonth month="12" />
-          </tbody>
-        </table>
+        {state.hasOwnProperty('profit_from_sales_below_20k') ?
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th colSpan="3">Operações Comuns</th>
+                  <th colSpan="3">Day Trade</th>
+                  <th colSpan="3">FIIs</th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>Total</th>
+                  <th>Imposto Pago</th>
+                  <th>IRRF</th>
+                  <th>Total</th>
+                  <th>Imposto Pago</th>
+                  <th>IRRF</th>
+                  <th>Total</th>
+                  <th>Imposto Pago</th>
+                  <th>IRRF</th>
+                </tr>
+              </thead>
+              <tbody>
+                <IrpfMonth month="01" />
+                <IrpfMonth month="02" />
+                <IrpfMonth month="03" />
+                <IrpfMonth month="04" />
+                <IrpfMonth month="05" />
+                <IrpfMonth month="06" />
+                <IrpfMonth month="07" />
+                <IrpfMonth month="08" />
+                <IrpfMonth month="09" />
+                <IrpfMonth month="10" />
+                <IrpfMonth month="11" />
+                <IrpfMonth month="12" />
+              </tbody>
+            </table>
+            <EndYearPositions />
+          </>
+          : <p>Sem registros a exibir</p>
+        }
       </IrpfContext.Provider>
     </>
   );
@@ -115,6 +119,33 @@ function IrpfMonth({ month }) {
     </tr>
   );
 
+}
+
+const EndYearPositions = () => {
+  const { state, setState } = useContext(IrpfContext);
+
+  const handleClick = (event) => {
+    console.log(event)
+  }
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th colSpan={3}>Posições Ano Anterior</th>
+        </tr>
+      </thead>
+      <tbody>
+        {state.end_year_positions.map((eep, index) => (
+          <tr key={index}>
+            <td>{eep.code}</td>
+            <td>{eep.text}</td>
+            <td onClick={handleClick}>Copiar</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 export default Irpf;
