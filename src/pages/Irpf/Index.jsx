@@ -33,26 +33,26 @@ export const Irpf = () => {
         </p>
 
         {state.hasOwnProperty('profit_from_sales_below_20k') ?
-          <>
-            <table>
+          <div className="table-responsive">
+            <table className="table">
               <thead>
                 <tr>
                   <th></th>
-                  <th colSpan="3">Operações Comuns</th>
-                  <th colSpan="3">Day Trade</th>
-                  <th colSpan="3">FIIs</th>
+                  <th className="text-start" scope="col" colSpan="3">Operações Comuns</th>
+                  <th className="text-start" scope="col" colSpan="3">Day Trade</th>
+                  <th className="text-start" scope="col" colSpan="3">FIIs</th>
                 </tr>
                 <tr>
                   <th></th>
-                  <th>Total</th>
-                  <th>Imposto Pago</th>
-                  <th>IRRF</th>
-                  <th>Total</th>
-                  <th>Imposto Pago</th>
-                  <th>IRRF</th>
-                  <th>Total</th>
-                  <th>Imposto Pago</th>
-                  <th>IRRF</th>
+                  <th className="text-end" scope="col">Total</th>
+                  <th className="text-end" scope="col">Imposto Pago</th>
+                  <th className="text-end" scope="col">IRRF</th>
+                  <th className="text-end" scope="col">Total</th>
+                  <th className="text-end" scope="col">Imposto Pago</th>
+                  <th className="text-end" scope="col">IRRF</th>
+                  <th className="text-end" scope="col">Total</th>
+                  <th className="text-end" scope="col">Imposto Pago</th>
+                  <th className="text-end" scope="col">IRRF</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,7 +71,7 @@ export const Irpf = () => {
               </tbody>
             </table>
             <EndYearPositions />
-          </>
+          </div>
           : <p>Sem registros a exibir</p>
         }
       </IrpfContext.Provider>
@@ -96,7 +96,7 @@ function Search() {
     }
   };
 
-  return <input type="search" placeholder="Search by Year" onKeyDown={handleKeyDown} />
+  return <input type="search" className="form-control" placeholder="Search by Year" onKeyDown={handleKeyDown} />
 }
 
 function IrpfMonth({ month }) {
@@ -104,18 +104,18 @@ function IrpfMonth({ month }) {
 
   return (
     <tr>
-      <th>
+      <th scope="row">
         {months[month]}
       </th>
-      <td>{state.swing_trade?.find(i => i.month === month)?.value}</td>
+      <td className="text-end">{state.swing_trade?.find(i => i.month === month)?.value}</td>
       <td></td>
-      <td>{state.irrf?.find(i => i.month === month && i.trade_type === "Swing Trade")?.value}</td>
-      <td>{state.day_trade?.find(i => i.month === month)?.value}</td>
+      <td className="text-end">{state.irrf?.find(i => i.month === month && i.trade_type === "Swing Trade")?.value}</td>
+      <td className="text-end">{state.day_trade?.find(i => i.month === month)?.value}</td>
       <td></td>
       <td></td>
-      <td>{state.fiis?.find(i => i.month === month)?.value}</td>
+      <td className="text-end">{state.fiis?.find(i => i.month === month)?.value}</td>
       <td></td>
-      <td>{state.irrf?.find(i => i.month === month && i.trade_type === "FII")?.value}</td>
+      <td className="text-end">{state.irrf?.find(i => i.month === month && i.trade_type === "FII")?.value}</td>
     </tr>
   );
 
@@ -129,17 +129,22 @@ const EndYearPositions = () => {
   }
 
   return (
-    <table>
+    <table className="table">
       <thead>
         <tr>
           <th colSpan={3}>Posições Ano Anterior</th>
+        </tr>
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Texto</th>
+          <th scope="col">Ação</th>
         </tr>
       </thead>
       <tbody>
         {state.end_year_positions.map((eep, index) => (
           <tr key={index}>
             <td>{eep.code}</td>
-            <td>{eep.text}</td>
+            <td className="text-start">{eep.text}</td>
             <td onClick={() => handleClick(eep.text)}>Copiar</td>
           </tr>
         ))}
